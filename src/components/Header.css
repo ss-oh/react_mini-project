@@ -1,0 +1,27 @@
+header {
+  display: flex;
+  height: 60px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: gray;
+  padding: 0px 20px;
+  text-align: center;
+}
+
+.logo:hover {
+  cursor: pointer;
+}
+
+nav {
+  display: flex;
+}
+ul {
+  width: 100%;
+  display: flex;
+}
+li {
+  width: 70px;
+}
+li:hover {
+  cursor: pointer;
+}
