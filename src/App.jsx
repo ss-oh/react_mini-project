@@ -7,6 +7,7 @@ import Japan from "./pages/Japan";
 import USA from "./pages/USA";
 import China from "./pages/China";
 import Contact from "./pages/Contact";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
