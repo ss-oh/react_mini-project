@@ -2,12 +2,12 @@ import {Route, Routes} from "react-router-dom";
 import "./App.css";
 import Header from "./components/Header";
 import MainPage from "./pages/MainPage";
-import Korea from "./pages/Korea";
-import Japan from "./pages/Japan";
-import USA from "./pages/USA";
-import China from "./pages/China";
-import Contact from "./pages/Contact";
 import "bootstrap/dist/css/bootstrap.min.css";
+import Login from "./pages/Login";
+import Concert from "./pages/Concert";
+import Hangaram from "./pages/Hangaram";
+import Location from "./pages/Location";
+import Ticket from "./pages/Ticket";
 
 function App() {
   return (
@@ -15,11 +15,11 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
-        <Route path="/korea" element={<Korea />} />
-        <Route path="/japan" element={<Japan />} />
-        <Route path="/usa" element={<USA />} />
-        <Route path="/china" element={<China />} />
-        <Route path="/contact" element={<Contact />} />
+        <Route path="/hangaram" element={<Hangaram />} />
+        <Route path="/concert" element={<Concert />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/location" element={<Location />} />
+        <Route path="/ticket" element={<Ticket />} />
       </Routes>
     </>
   );

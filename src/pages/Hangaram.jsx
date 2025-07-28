@@ -1,6 +1,6 @@
 import {useState} from "react";
 
-function Korea() {
+function Hangaram() {
   const [selectedUrl, setSelectedUrl] = useState(null);
 
   const sampleItems = [
@@ -40,4 +40,4 @@ function Korea() {
   );
 }
 
-export default Korea;
+export default Hangaram;

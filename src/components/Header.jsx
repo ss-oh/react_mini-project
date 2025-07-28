@@ -9,9 +9,11 @@ function Header() {
       </div>
       <nav>
         <ul>
-          <li onClick={() => navigate("/korea")}>한가람미술관</li>
-          <li onClick={() => navigate("/japan")}>콘서트홀</li>
-          <li onClick={() => navigate("/usa")}>로그인</li>
+          <li onClick={() => navigate("/hangaram")}>한가람미술관</li>
+          <li onClick={() => navigate("/concert")}>콘서트홀</li>
+          <li onClick={() => navigate("/login")}>로그인</li>
+          <li onClick={() => navigate("/location")}>오시는 길</li>
+          <li onClick={() => navigate("/ticket")}>예매하기</li>
         </ul>
       </nav>
     </header>
