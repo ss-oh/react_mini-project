@@ -1,0 +1,10 @@
+.card:hover {
+  transform: rotateY(180deg);
+}
+.card-back::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* 검정색 투명도 40% */
+  z-index: 1;
+}
