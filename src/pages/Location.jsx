@@ -1,45 +1,131 @@
-import {useEffect} from "react";
+import {useEffect, useState} from "react";
 import "./Location.css"; // 스타일 파일 추가
 const {kakao} = window; // 전역 kakao 객체 사용
 
 function Location() {
+  const [lat, setLat] = useState(null);
+  const [lng, setLng] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [map, setMap] = useState(null); // 지도 객체 저장
+  const [activeButton, setActiveButton] = useState("artsCenter"); // 초기 활성화: 예술의전당
+
   useEffect(() => {
-    var mapContainer = document.getElementById("map"), // 지도를 표시할 div
-      mapOption = {
-        center: new kakao.maps.LatLng(37.47892810052104, 127.01305252974291), // 지도의 중심좌표
-        level: 2, // 지도의 확대 레벨
-      };
-    var map = new kakao.maps.Map(mapContainer, mapOption);
+    // 지도를 표시할 div
+    const mapContainer = document.getElementById("map");
+    const mapOption = {
+      center: new kakao.maps.LatLng(37.479147, 127.011717), // 예술의전당 좌표로 설정
+      level: 3, // 지도의 확대 레벨
+      scrollwheel: false,
+    };
+    const kakaoMap = new kakao.maps.Map(mapContainer, mapOption);
+    setMap(kakaoMap); // 지도 객체 저장
 
-    kakao.maps.event.addListener(map, "center_changed", function () {
-      // 지도의  레벨을 얻어옵니다
-      var level = map.getLevel();
+    // 명시적으로 초기 중심을 예술의전당으로 설정
+    kakaoMap.setCenter(new kakao.maps.LatLng(37.479147, 127.011717));
 
-      // 지도의 중심좌표를 얻어옵니다
-      var latlng = map.getCenter();
+    // 현재 위치 가져오기
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const lat = position.coords.latitude;
+          const lon = position.coords.longitude;
+          setLat(lat);
+          setLng(lon);
 
-      var message = "<p>지도 레벨은 " + level + " 이고</p>";
-      message +=
-        "<p>중심 좌표는 위도 " +
-        latlng.getLat() +
-        ", 경도 " +
-        latlng.getLng() +
-        "입니다</p>";
+          const locPosition = new kakao.maps.LatLng(lat, lon);
+          const message = '<div style="padding:5px;">여기에 계신가요?!</div>';
+          displayMarker(locPosition, message);
+        },
+        (error) => {
+          console.error("Geolocation error:", error);
+          const locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+          const message = "geolocation을 사용할 수 없어요..";
+          setLat(33.450701);
+          setLng(126.570667);
+          displayMarker(locPosition, message);
+        }
+      );
+    } else {
+      const locPosition = new kakao.maps.LatLng(33.450701, 126.570667);
+      const message = "geolocation을 사용할 수 없어요..";
+      setLat(33.450701);
+      setLng(126.570667);
+      displayMarker(locPosition, message);
+    }
 
-      var resultDiv = document.getElementById("result");
-      resultDiv.innerHTML = message;
+    function displayMarker(locPosition, message) {
+      const marker = new kakao.maps.Marker({
+        map: kakaoMap,
+        position: locPosition,
+      });
+
+      const iwContent = message;
+      const iwRemoveable = true;
+
+      const infowindow = new kakao.maps.InfoWindow({
+        content: iwContent,
+        removable: iwRemoveable,
+      });
+
+      infowindow.open(kakaoMap, marker);
+      kakaoMap.setCenter(new kakao.maps.LatLng(37.479147, 127.011717));
+    }
+
+    // 3개의 마커와 텍스트를 위한 배열
+    const markers = [
+      {
+        position: new kakao.maps.LatLng(37.47933796037272, 127.0139231512912),
+        text: "예술의전당",
+      },
+      {
+        position: new kakao.maps.LatLng(37.47992374784796, 127.0127587485928),
+        text: "한가람미술관",
+      },
+      {
+        position: new kakao.maps.LatLng(37.479207549880535, 127.01175240814149),
+        text: "콘서트홀",
+      },
+    ];
+
+    // 마커와 CustomOverlay 객체를 저장할 배열
+    const markerObjects = [];
+    const overlayObjects = [];
+
+    // 마커와 CustomOverlay 생성
+    markers.forEach((markerData) => {
+      const marker = new kakao.maps.Marker({
+        position: markerData.position,
+      });
+      const customOverlay = new kakao.maps.CustomOverlay({
+        position: markerData.position,
+        content: `<div style="background:white;padding:5px;border:1px solid black;border-radius:3px;">${markerData.text}</div>`,
+        yAnchor: -0.1,
+      });
+
+      marker.setMap(kakaoMap);
+      customOverlay.setMap(kakaoMap);
+
+      markerObjects.push(marker);
+      overlayObjects.push(customOverlay);
     });
 
-    var areas = [
+    // 중심 변경 이벤트 리스너
+    kakao.maps.event.addListener(kakaoMap, "center_changed", function () {
+      const level = kakaoMap.getLevel();
+      const latlng = kakaoMap.getCenter();
+      const message = `<p>지도 레벨은 ${level} 이고</p><p>중심 좌표는 위도 ${latlng.getLat()}, 경도 ${latlng.getLng()}입니다</p>`;
+      document.getElementById("result").innerHTML = message;
+    });
+
+    // 다각형 데이터
+    const areas = [
       {
         name: "예술의전당",
         path: [
-          new kakao.maps.LatLng(37.479784000719405, 127.01357275069294),
           new kakao.maps.LatLng(37.47958581463431, 127.01325615007072),
           new kakao.maps.LatLng(37.47944166137885, 127.01318263649556),
           new kakao.maps.LatLng(37.47925695384987, 127.01318825696576),
           new kakao.maps.LatLng(37.4791127854074, 127.01325041360394),
-          new kakao.maps.LatLng(37.478977615513735, 127.01341432373884),
           new kakao.maps.LatLng(37.478977615513735, 127.01341432373884),
           new kakao.maps.LatLng(37.4789055134422, 127.01360085625942),
           new kakao.maps.LatLng(37.47888747690363, 127.01374217523615),
@@ -67,19 +153,72 @@ function Location() {
           new kakao.maps.LatLng(37.479707437499854, 127.01337488353907),
           new kakao.maps.LatLng(37.479644376423316, 127.0132900780968),
           new kakao.maps.LatLng(37.47958356274534, 127.01325049673068),
-          new kakao.maps.LatLng(37.479784000719405, 127.01357275069294),
+          new kakao.maps.LatLng(37.47958581463431, 127.01325615007072),
+        ],
+      },
+      {
+        name: "한가람미술관",
+        path: [
+          new kakao.maps.LatLng(37.48001163682945, 127.01237718775629),
+          new kakao.maps.LatLng(37.47997784720809, 127.01239414109894),
+          new kakao.maps.LatLng(37.479957579532396, 127.0123460875026),
+          new kakao.maps.LatLng(37.47991703175475, 127.01236869270103),
+          new kakao.maps.LatLng(37.47990577416028, 127.01232064062987),
+          new kakao.maps.LatLng(37.479820174746166, 127.01235454433625),
+          new kakao.maps.LatLng(37.47963090605655, 127.01288589008415),
+          new kakao.maps.LatLng(37.479666935284214, 127.01298764934484),
+          new kakao.maps.LatLng(37.47981560893019, 127.0129170126919),
+          new kakao.maps.LatLng(37.47984262990134, 127.01300746511924),
+          new kakao.maps.LatLng(37.479921471312714, 127.01297921394692),
+          new kakao.maps.LatLng(37.47996650678986, 127.0131148930431),
+          new kakao.maps.LatLng(37.480040843805455, 127.01308098817478),
+          new kakao.maps.LatLng(37.48005660739192, 127.01311773527902),
+          new kakao.maps.LatLng(37.48009264807163, 127.01311491508898),
+          new kakao.maps.LatLng(37.480110662596346, 127.01316579507517),
+          new kakao.maps.LatLng(37.48020076791266, 127.01312623996286),
+          new kakao.maps.LatLng(37.48017374421794, 127.01306687887516),
+          new kakao.maps.LatLng(37.4802075342468, 127.01304709929666),
+          new kakao.maps.LatLng(37.48001163682945, 127.01237718775629),
+        ],
+      },
+      {
+        name: "콘서트홀",
+        path: [
+          new kakao.maps.LatLng(37.47929321551734, 127.01102884774599),
+          new kakao.maps.LatLng(37.478811153674734, 127.01126054514677),
+          new kakao.maps.LatLng(37.4787795896913, 127.0115573167004),
+          new kakao.maps.LatLng(37.478820101164644, 127.0118993224676),
+          new kakao.maps.LatLng(37.478883151438026, 127.01210001004284),
+          new kakao.maps.LatLng(37.478991253012296, 127.01228939954451),
+          new kakao.maps.LatLng(37.47907909019999, 127.01239681911025),
+          new kakao.maps.LatLng(37.4791939575673, 127.01250424343145),
+          new kakao.maps.LatLng(37.479329114927474, 127.0124477367216),
+          new kakao.maps.LatLng(37.47935388551627, 127.01251557593007),
+          new kakao.maps.LatLng(37.479439486773565, 127.01246471382396),
+          new kakao.maps.LatLng(37.47942597847499, 127.0123997028806),
+          new kakao.maps.LatLng(37.479511578203514, 127.01236297293535),
+          new kakao.maps.LatLng(37.47953184290162, 127.01243929094197),
+          new kakao.maps.LatLng(37.4795971687461, 127.0124138635259),
+          new kakao.maps.LatLng(37.47958141055278, 127.01232341384537),
+          new kakao.maps.LatLng(37.479673768999604, 127.01227537894553),
+          new kakao.maps.LatLng(37.47954316679891, 127.01184290773053),
+          new kakao.maps.LatLng(37.479545430599984, 127.01172984929978),
+          new kakao.maps.LatLng(37.479527419359776, 127.01163939947571),
+          new kakao.maps.LatLng(37.4795026474379, 127.01158003980358),
+          new kakao.maps.LatLng(37.479493639835866, 127.01155460020382),
+          new kakao.maps.LatLng(37.47944409176558, 127.01147827799578),
+          new kakao.maps.LatLng(37.47929321551734, 127.01102884774599),
         ],
       },
     ];
-    for (var i = 0, len = areas.length; i < len; i++) {
-      displayArea(areas[i]);
-    }
 
-    // 다각형을 생상하고 이벤트를 등록하는 함수입니다
+    // 인포윈도우 생성
+    const infowindow = new kakao.maps.InfoWindow({zIndex: 1});
+
+    // 다각형 생성 및 이벤트 등록
     function displayArea(area) {
-      // 다각형을 생성합니다
-      var polygon = new kakao.maps.Polygon({
-        map: map, // 다각형을 표시할 지도 객체
+      const polygon = new kakao.maps.Polygon({
+        map: kakaoMap,
         path: area.path,
         strokeWeight: 2,
         strokeColor: "#004c80",
@@ -88,85 +227,134 @@ function Location() {
         fillOpacity: 0.7,
       });
 
-      // 다각형에 mouseover 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 변경합니다
-      // 지역명을 표시하는 커스텀오버레이를 지도위에 표시합니다
+      const polygonOverlay = new kakao.maps.CustomOverlay({});
+
       kakao.maps.event.addListener(polygon, "mouseover", function (mouseEvent) {
         polygon.setOptions({fillColor: "#09f"});
-
-        customOverlay.setContent('<div class="area">' + area.name + "</div>");
-
-        customOverlay.setPosition(mouseEvent.latLng);
-        customOverlay.setMap(map);
+        polygonOverlay.setContent(`<div class="area">${area.name}</div>`);
+        polygonOverlay.setPosition(mouseEvent.latLng);
+        polygonOverlay.setMap(kakaoMap);
       });
 
-      // 다각형에 mousemove 이벤트를 등록하고 이벤트가 발생하면 커스텀 오버레이의 위치를 변경합니다
       kakao.maps.event.addListener(polygon, "mousemove", function (mouseEvent) {
-        customOverlay.setPosition(mouseEvent.latLng);
+        polygonOverlay.setPosition(mouseEvent.latLng);
       });
 
-      // 다각형에 mouseout 이벤트를 등록하고 이벤트가 발생하면 폴리곤의 채움색을 원래색으로 변경합니다
-      // 커스텀 오버레이를 지도에서 제거합니다
       kakao.maps.event.addListener(polygon, "mouseout", function () {
         polygon.setOptions({fillColor: "#fff"});
-        customOverlay.setMap(null);
+        polygonOverlay.setMap(null);
       });
 
-      // 다각형에 click 이벤트를 등록하고 이벤트가 발생하면 다각형의 이름과 면적을 인포윈도우에 표시합니다
       kakao.maps.event.addListener(polygon, "click", function (mouseEvent) {
-        var content =
-          '<div class="info">' +
-          '   <div class="title">' +
-          area.name +
-          "</div>" +
-          '   <div class="size">총 면적 : 약 ' +
-          Math.floor(polygon.getArea()) +
-          " m<sup>2</sup></div>" +
-          "</div>";
-
+        const content = `
+          <div class="info">
+            <div class="title">${area.name}</div>
+            <div class="size">총 면적 : 약 ${Math.floor(
+              polygon.getArea()
+            )} m<sup>2</sup></div>
+          </div>`;
         infowindow.setContent(content);
         infowindow.setPosition(mouseEvent.latLng);
-        infowindow.setMap(map);
+        infowindow.setMap(kakaoMap);
       });
     }
 
-    // 지도를 클릭한 위치에 표출할 마커입니다
-    var marker = new kakao.maps.Marker({
-      // 지도 중심좌표에 마커를 생성합니다
-      position: map.getCenter(),
-    });
-    // 지도에 마커를 표시합니다
-    marker.setMap(map);
+    // 다각형 표시
+    areas.forEach((area) => displayArea(area));
 
-    // 지도에 클릭 이벤트를 등록합니다
-    // 지도를 클릭하면 마지막 파라미터로 넘어온 함수를 호출합니다
-    kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-      // 클릭한 위도, 경도 정보를 가져옵니다
-      var latlng = mouseEvent.latLng;
+    // 지도 컨트롤 추가
+    const mapTypeControl = new kakao.maps.MapTypeControl();
+    kakaoMap.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
-      // 마커 위치를 클릭한 위치로 옮깁니다
-      marker.setPosition(latlng);
+    const zoomControl = new kakao.maps.ZoomControl();
+    kakaoMap.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
+  }, []);
 
-      var message = "클릭한 위치의 위도는 " + latlng.getLat() + " 이고, ";
-      message += "경도는 " + latlng.getLng() + " 입니다";
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
 
-      var resultDiv = document.getElementById("clickLatlng");
-      resultDiv.innerHTML = message;
-    });
-  }, []); // 빈 의존성 배열로 마운트 시 한 번만 실행
+  const moveToCurrentLocation = () => {
+    if (map && lat && lng) {
+      map.setCenter(new kakao.maps.LatLng(lat, lng));
+      setActiveButton("currentLocation");
+    } else {
+      alert("현재 위치를 가져올 수 없습니다.");
+    }
+  };
+
+  const moveToArtsCenter = () => {
+    if (map) {
+      map.setCenter(
+        new kakao.maps.LatLng(37.47933796037272, 127.0139231512912)
+      );
+      setActiveButton("artsCenter");
+    }
+  };
 
   return (
-    <>
-      <main style={{paddingTop: "60px"}}>
-        <h1>오시는 길</h1>
-        <div id="map" style={{width: "1000px", height: "800px"}}></div>
-        <div id="clickLatlng"></div>
-        <p id="result"></p>
-        <p> 여기에 오시는 길에 대한 정보를 입력하세요.</p>
-        <p>예: 서울특별시 강남구 테헤란로 123</p>
-        <p>지하철: 2호선 강남역 5번 출구</p>
-        <p>버스: 400, 402, 740번 버스 이용</p>
-      </main>
-    </>
+    <main style={{paddingTop: "60px"}}>
+      <h1>오시는 길</h1>
+      <div style={{position: "relative"}}>
+        <div id="map" style={{width: "100%", height: "80vh"}}></div>
+        <div className="map-buttons">
+          <button
+            className={activeButton === "currentLocation" ? "active" : ""}
+            onClick={moveToCurrentLocation}
+          >
+            현위치
+          </button>
+          <button
+            className={activeButton === "artsCenter" ? "active" : ""}
+            onClick={moveToArtsCenter}
+          >
+            예술의전당
+          </button>
+          <button
+            className={activeButton === "route" ? "active" : ""}
+            onClick={() => {
+              openModal();
+              setActiveButton("route");
+            }}
+          >
+            길찾기
+          </button>
+        </div>
+      </div>
+      <div id="clickLatlng"></div>
+      <p id="result"></p>
+      <p>여기에 오시는 길에 대한 정보를 입력하세요.</p>
+      <p>예: 서울특별시 강남구 테헤란로 123</p>
+      <p>지하철: 2호선 강남역 5번 출구</p>
+      <p>버스: 400, 402, 740번 버스 이용</p>
+      {isModalOpen && (
+        <div className="modal">
+          <div className="modal-content">
+            <span className="modal-close" onClick={closeModal}>
+              &times;
+            </span>
+            <h2>경로 안내</h2>
+            {lat && lng ? (
+              <iframe
+                src={`https://map.kakao.com/link/from/현재위치,${lat},${lng}/to/예술의전당,37.47933796037272,127.0139231512912`}
+                style={{width: "100%", height: "500px", border: "none"}}
+                title="Kakao Maps Route"
+              ></iframe>
+            ) : (
+              <p>현재 위치를 가져올 수 없습니다.</p>
+            )}
+            <p>
+              <a
+                href={`https://map.kakao.com/link/from/현재위치,${lat},${lng}/to/예술의전당,37.47933796037272,127.0139231512912`}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                새 탭에서 경로 안내 열기
+              </a>
+            </p>
+          </div>
+        </div>
+      )}
+    </main>
   );
 }
 

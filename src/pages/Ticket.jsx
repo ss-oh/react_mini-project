@@ -1,7 +1,7 @@
 function Ticket() {
   return (
     <>
-      <div>Ticket</div>
+      <h2>예약/예매</h2>
     </>
   );
 }

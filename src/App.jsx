@@ -8,6 +8,7 @@ import Concert from "./pages/Concert";
 import Hangaram from "./pages/Hangaram";
 import Location from "./pages/Location";
 import Ticket from "./pages/Ticket";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/location" element={<Location />} />
         <Route path="/ticket" element={<Ticket />} />
       </Routes>
+      <Footer />
     </>
   );
 }
