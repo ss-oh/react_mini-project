@@ -1,0 +1,86 @@
+.area {
+  background: #fff;
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 5px;
+  font-size: 12px;
+}
+
+.info {
+  background: #fff;
+  border: 1px solid #888;
+  border-radius: 3px;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.info .title {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.info .size {
+  font-size: 12px;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 800px;
+  width: 90%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.map-buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 10px;
+}
+
+.map-buttons button {
+  background: #fff;
+  border: 1px solid #333;
+  border-radius: 5px;
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.map-buttons button:hover {
+  background: #004c80;
+  color: white;
+}
+
+.map-buttons button.active {
+  background: #004c80;
+  color: white;
+  border-color: #004c80;
+}

@@ -1,0 +1,34 @@
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+footer {
+  width: 100%;
+  background-color: #c9c9c9;
+  padding: 20px;
+  text-align: center;
+}
+
+footer p {
+  margin: 0;
+  color: #303030;
+}
+
+.footer-logo img {
+  width: 150px;
+}
+.footer-logo {
+  margin-bottom: 10px;
+}
+
+footer > nav {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+footer > nav > ul {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+}
