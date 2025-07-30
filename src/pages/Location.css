@@ -1,3 +1,44 @@
+#map {
+  width: 100%;
+  height: 80vh;
+}
+h3 {
+  text-align: center;
+  margin: 20px 0;
+  color: #686868;
+  position: relative;
+}
+.dt-title:after {
+  content: "";
+  display: block;
+  height: 6px;
+  width: 50px;
+  background: #f82847;
+  position: absolute;
+  top: -10px;
+  left: 0;
+}
+
+#location-wrap {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0 100px;
+}
+
+.location-tab {
+  text-align: center;
+}
+
+.location-tab img {
+  width: 100%;
+  max-width: 1200px;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
 .area {
   background: #fff;
   border: 1px solid #888;
@@ -83,4 +124,91 @@
   background: #004c80;
   color: white;
   border-color: #004c80;
+}
+.nav-tabs .nav-link.active {
+  color: #fc0019 !important; /* 원하는 색상으로 변경 (예: 빨간색) */
+  border-color: #bbbbbb #bbbbbb #fff !important;
+}
+
+.nav-tabs .nav-link {
+  color: #868686 !important; /* 원하는 색상으로 변경 (예: 진회색) */
+}
+
+/* 오시는 길 대중교통 - 지하철 */
+.subwaylist {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.subway-box {
+  width: 65vw;
+  background: #fff;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.subway-box .subway-info-box {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin: 0;
+  border-bottom: 1px solid #ddd;
+}
+.right-box {
+  text-align: left;
+  width: 80%;
+}
+
+.txt-info {
+  font-size: 15px;
+  color: #666;
+}
+
+.pink-txt {
+  color: #ff7381;
+  font-weight: bold;
+}
+
+.green-txt {
+  color: #00a941;
+  font-weight: bold;
+}
+.blue-txt {
+  color: #004c80;
+  font-weight: bold;
+}
+
+span {
+  color: #ffffff;
+  background: #d2d2d2;
+  font-size: 12px;
+  line-height: 0;
+  padding: 8px 5px 9px 5px;
+  display: inline-block;
+  border-radius: 20px;
+  margin-right: 5px;
+}
+@media screen and (max-width: 768px) {
+  #map {
+    width: 85vw;
+    height: 60vh;
+    margin: 0 auto;
+  }
+  #location-wrap {
+    padding: 0 20px;
+  }
+  .subwaylist {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .subwaylist dt {
+    border-bottom: 1px solid rgb(99, 99, 99);
+  }
+
+  .dt-title {
+    text-align: left;
+  }
 }
