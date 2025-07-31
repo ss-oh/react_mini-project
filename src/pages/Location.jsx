@@ -297,7 +297,7 @@ function Location() {
       <h3>오시는 길</h3>
       <div id="location-wrap">
         <Tabs
-          defaultActiveKey="profile"
+          defaultActiveKey="home"
           id="justify-tab-example"
           className="mb-3"
           justify
@@ -405,7 +405,86 @@ function Location() {
             title="승용차 이용안내"
             className="location-tab"
           >
-            Tab content for Profile
+            <dl className="subwaylist">
+              <dt>
+                <h3 className="dt-title">남부순환로</h3>
+              </dt>
+              <dd>
+                <div className="subway-box">
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">양재방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        경부고속도로 서초IC 예술의전당 방향 → 남부순환로
+                      </p>
+                      <p className="car-txt">
+                        사당방면으로 직진 → 예술의전당앞 교차로 좌측에
+                      </p>
+                      <p className="car-txt">예술의전당</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">사당 방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        남부순환로 양재방면으로 직진 → 예술의전당앞 교차로
+                      </p>
+                      <p className="car-txt">우측에 예술의전당</p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+            <dl className="subwaylist">
+              <dt>
+                <h3 className="dt-title">올림픽대로</h3>
+              </dt>
+              <dd>
+                <div className="subway-box">
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">공항방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        올림픽대로 반포대교 분기점에서 고속터미널 방면으로
+                      </p>
+                      <p className="car-txt">
+                        좌회전 → 곧바로 반포대교 고가차로를 타고
+                      </p>
+                      <p className="car-txt">
+                        서초역 방면으로 직진 → 서초3동 사거리를 지나 우면산
+                      </p>
+                      <p className="car-txt">
+                        터널 옆으로 우측 도로 진입 → 예술의전당앞 교차로 정면에
+                      </p>
+                      <p className="car-txt">예술의전당</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">잠실 방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        올림픽대로 한남대교 분기점에서 한남IC 진입 → 곧이어
+                      </p>
+                      <p className="car-txt">
+                        한남IC 부산방향으로 경부고속도로 진입 → 서초IC
+                      </p>
+                      <p className="car-txt">
+                        예술의전당 방향으로 나와 사당방면으로 직진 → 예술의전당
+                      </p>
+                      <p className="car-txt">앞 교차로 좌측에 예술의전당</p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
           </Tab>
           <Tab
             eventKey="longer-tab"
@@ -415,7 +494,17 @@ function Location() {
             <div>
               <p>예술의 전당 전체지도</p>
 
-              <img src="../src/imges/map_main.jpg" alt="" srcset="" />
+              <img src="../src/imges/map02.jpg" alt="" srcset="" />
+            </div>
+            <div>
+              <p>예술의 전당 전체지도</p>
+
+              <img src="../src/imges/map01.jpg" alt="" srcset="" />
+            </div>
+            <div>
+              <p>예술의 전당 전체지도</p>
+
+              <img src="../src/imges/map03.jpg" alt="" srcset="" />
             </div>
           </Tab>
         </Tabs>

@@ -37,7 +37,16 @@ function MainPage() {
 
   return (
     <>
-      {loading && <div>로딩 중...</div>}
+      {loading && (
+        <div className="mask">
+          <img
+            className="loadingImg"
+            src="https://i.ibb.co/20zw80q/1487.gif"
+            alt="Loading..."
+          />
+          <p className="loadingText">페이지 로딩중...</p>
+        </div>
+      )}
       {error && <div style={{color: "red"}}>{error}</div>}
       {data.length > 0 ? (
         <main>
@@ -78,6 +87,7 @@ function MainPage() {
                       style={{
                         fontSize: "2rem",
                         fontWeight: "900",
+                        color: "white",
                       }}
                     >
                       {item.TITLE}
