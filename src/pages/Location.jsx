@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import "./Location.css"; // 스타일 파일 추가
+import {Tab, Tabs} from "react-bootstrap";
 const {kakao} = window; // 전역 kakao 객체 사용
 
 function Location() {
@@ -293,67 +294,282 @@ function Location() {
 
   return (
     <main style={{paddingTop: "60px"}}>
-      <h1>오시는 길</h1>
-      <div style={{position: "relative"}}>
-        <div id="map" style={{width: "100%", height: "80vh"}}></div>
-        <div className="map-buttons">
-          <button
-            className={activeButton === "currentLocation" ? "active" : ""}
-            onClick={moveToCurrentLocation}
+      <h3>오시는 길</h3>
+      <div id="location-wrap">
+        <Tabs
+          defaultActiveKey="home"
+          id="justify-tab-example"
+          className="mb-3"
+          justify
+        >
+          <Tab
+            eventKey="home"
+            title="대중교통 이용안내"
+            className="location-tab"
           >
-            현위치
-          </button>
-          <button
-            className={activeButton === "artsCenter" ? "active" : ""}
-            onClick={moveToArtsCenter}
+            <dl className="subwaylist">
+              <dt>
+                <h3 className="dt-title">지하철</h3>
+              </dt>
+              <dd>
+                <div className="subway-box">
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="pink-txt">• 3호선</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="pink-txt">남부터미널역 5번출구</p>
+                      <p className="txt-info">
+                        <span>1</span> 도보이동 (약 5~10분 소요)
+                      </p>
+                      <p className="txt-info">
+                        <span>2</span> 마을버스 22번(초록색)을 타고 두 정거장
+                        이동
+                      </p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="green-txt">• 2호선</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="green-txt">서초역 3번출구</p>
+                      <p className="txt-info">
+                        <span>1</span> 마을버스 11번(초록색)을 타고 네 정거장
+                        이동
+                      </p>
+                      <p className="txt-info">
+                        <span>2</span> 도보이동 (약 20~25분 소요)
+                      </p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="blue-txt">• 4호선</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="blue-txt">사당역 1번출구</p>
+                      <p className="txt-info">
+                        <span>1</span> 마을버스 17번(초록색)을 타고 16개 정거장
+                        이동
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+            <dl className="subwaylist">
+              <dt>
+                <h3 className="dt-title">버스</h3>
+              </dt>
+              <dd>
+                <div className="subway-box">
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="blue-txt">간선</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="blue-txt">406, 405</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="green-txt">지선</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="green-txt">5413</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="pink-txt">직행</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="pink-txt">1500-2, 1553</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="green-txt">마을</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="green-txt">서초11, 서초17, 서초22</p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+          </Tab>
+          <Tab
+            eventKey="profile"
+            title="승용차 이용안내"
+            className="location-tab"
           >
-            예술의전당
-          </button>
-          <button
-            className={activeButton === "route" ? "active" : ""}
-            onClick={() => {
-              openModal();
-              setActiveButton("route");
-            }}
+            <dl className="subwaylist">
+              <dt>
+                <h3 className="dt-title">남부순환로</h3>
+              </dt>
+              <dd>
+                <div className="subway-box">
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">양재방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        경부고속도로 서초IC 예술의전당 방향 → 남부순환로
+                      </p>
+                      <p className="car-txt">
+                        사당방면으로 직진 → 예술의전당앞 교차로 좌측에
+                      </p>
+                      <p className="car-txt">예술의전당</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">사당 방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        남부순환로 양재방면으로 직진 → 예술의전당앞 교차로
+                      </p>
+                      <p className="car-txt">우측에 예술의전당</p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+            <dl className="subwaylist">
+              <dt>
+                <h3 className="dt-title">올림픽대로</h3>
+              </dt>
+              <dd>
+                <div className="subway-box">
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">공항방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        올림픽대로 반포대교 분기점에서 고속터미널 방면으로
+                      </p>
+                      <p className="car-txt">
+                        좌회전 → 곧바로 반포대교 고가차로를 타고
+                      </p>
+                      <p className="car-txt">
+                        서초역 방면으로 직진 → 서초3동 사거리를 지나 우면산
+                      </p>
+                      <p className="car-txt">
+                        터널 옆으로 우측 도로 진입 → 예술의전당앞 교차로 정면에
+                      </p>
+                      <p className="car-txt">예술의전당</p>
+                    </div>
+                  </div>
+                  <div className="subway-info-box">
+                    <div className="left-box">
+                      <p className="car-txt">잠실 방면에서 오시는 경우</p>
+                    </div>
+                    <div className="right-box">
+                      <p className="car-txt">
+                        올림픽대로 한남대교 분기점에서 한남IC 진입 → 곧이어
+                      </p>
+                      <p className="car-txt">
+                        한남IC 부산방향으로 경부고속도로 진입 → 서초IC
+                      </p>
+                      <p className="car-txt">
+                        예술의전당 방향으로 나와 사당방면으로 직진 → 예술의전당
+                      </p>
+                      <p className="car-txt">앞 교차로 좌측에 예술의전당</p>
+                    </div>
+                  </div>
+                </div>
+              </dd>
+            </dl>
+          </Tab>
+          <Tab
+            eventKey="longer-tab"
+            title="예술의전당 안내도"
+            className="location-tab"
           >
-            길찾기
-          </button>
-        </div>
-      </div>
-      <div id="clickLatlng"></div>
-      <p id="result"></p>
-      <p>여기에 오시는 길에 대한 정보를 입력하세요.</p>
-      <p>예: 서울특별시 강남구 테헤란로 123</p>
-      <p>지하철: 2호선 강남역 5번 출구</p>
-      <p>버스: 400, 402, 740번 버스 이용</p>
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <span className="modal-close" onClick={closeModal}>
-              &times;
-            </span>
-            <h2>경로 안내</h2>
-            {lat && lng ? (
-              <iframe
-                src={`https://map.kakao.com/link/from/현재위치,${lat},${lng}/to/예술의전당,37.47933796037272,127.0139231512912`}
-                style={{width: "100%", height: "500px", border: "none"}}
-                title="Kakao Maps Route"
-              ></iframe>
-            ) : (
-              <p>현재 위치를 가져올 수 없습니다.</p>
-            )}
-            <p>
-              <a
-                href={`https://map.kakao.com/link/from/현재위치,${lat},${lng}/to/예술의전당,37.47933796037272,127.0139231512912`}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                새 탭에서 경로 안내 열기
-              </a>
-            </p>
+            <div>
+              <p>예술의 전당 전체지도</p>
+
+              <img src="../src/imges/map02.jpg" alt="" srcset="" />
+            </div>
+            <div>
+              <p>예술의 전당 전체지도</p>
+
+              <img src="../src/imges/map01.jpg" alt="" srcset="" />
+            </div>
+            <div>
+              <p>예술의 전당 전체지도</p>
+
+              <img src="../src/imges/map03.jpg" alt="" srcset="" />
+            </div>
+          </Tab>
+        </Tabs>
+
+        <div style={{position: "relative"}}>
+          <div id="map" style={{}}></div>
+          <div className="map-buttons">
+            <button
+              className={activeButton === "currentLocation" ? "active" : ""}
+              onClick={moveToCurrentLocation}
+            >
+              현위치
+            </button>
+            <button
+              className={activeButton === "artsCenter" ? "active" : ""}
+              onClick={moveToArtsCenter}
+            >
+              예술의전당
+            </button>
+            <button
+              className={activeButton === "route" ? "active" : ""}
+              onClick={() => {
+                openModal();
+                setActiveButton("route");
+              }}
+            >
+              길찾기
+            </button>
           </div>
         </div>
-      )}
+        <div id="clickLatlng"></div>
+        <p id="result"></p>
+        <p>여기에 오시는 길에 대한 정보를 입력하세요.</p>
+        <p>예: 서울특별시 강남구 테헤란로 123</p>
+        <p>지하철: 2호선 강남역 5번 출구</p>
+        <p>버스: 400, 402, 740번 버스 이용</p>
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
+              <span className="modal-close" onClick={closeModal}>
+                &times;
+              </span>
+              <h2>경로 안내</h2>
+              {lat && lng ? (
+                <iframe
+                  src={`https://map.kakao.com/link/from/현재위치,${lat},${lng}/to/예술의전당,37.47933796037272,127.0139231512912`}
+                  style={{width: "100%", height: "500px", border: "none"}}
+                  title="Kakao Maps Route"
+                ></iframe>
+              ) : (
+                <p>현재 위치를 가져올 수 없습니다.</p>
+              )}
+              <p>
+                <a
+                  href={`https://map.kakao.com/link/from/현재위치,${lat},${lng}/to/예술의전당,37.47933796037272,127.0139231512912`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  새 탭에서 경로 안내 열기
+                </a>
+              </p>
+            </div>
+          </div>
+        )}
+      </div>
     </main>
   );
 }

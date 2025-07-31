@@ -8,3 +8,6 @@
   background-color: rgba(0, 0, 0, 0.6); /* 검정색 투명도 40% */
   z-index: 1;
 }
+h3 {
+  color: white;
+}
