@@ -9,18 +9,18 @@ function Header() {
     <header>
       <div className="desktop-nav">
         <div className="logo" onClick={() => navigate("/")}>
-          <img src="../src/imges/logo.png" alt="" srcset="" />
+          <img src="../src/imges/logo.png" alt="" srcSet="" />
         </div>
         <nav>
-          <ul>
+          <ul className="desktop-nav-list">
             <li onClick={() => navigate("/hangaram")}>한가람미술관</li>
             <li onClick={() => navigate("/concert")}>콘서트홀</li>
             <li onClick={() => navigate("/location")}>오시는 길</li>
             <li onClick={() => navigate("/ticket")}>
-              <i class="fa-regular fa-calendar"></i>
+              <i className="fa-regular fa-calendar"></i>
             </li>
             <li onClick={() => navigate("/login")}>
-              <i class="fa-regular fa-user"></i>
+              <i className="fa-regular fa-user"></i>
             </li>
           </ul>
         </nav>
@@ -28,7 +28,7 @@ function Header() {
       <div className="mobile-nav">
         <div className="mobile-nav-wrap">
           <div className="logo" onClick={() => navigate("/")}>
-            <img src="../src/imges/logo.png" alt="" srcset="" />
+            <img src="../src/imges/logo.png" alt="" srcSet="" />
           </div>
         </div>
         <div className="togglebtn">
