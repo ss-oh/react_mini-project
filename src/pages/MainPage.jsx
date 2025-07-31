@@ -16,7 +16,9 @@ function MainPage() {
       try {
         const res = await axios(
           // 환경 변수 사용 권장: import.meta.env.VITE_API_KEY
-          "https://api.kcisa.kr/openapi/API_CCA_149/request?serviceKey=9fe7ab3c-b871-45f3-beb9-c907d3a79140&numOfRows=6&pageNo=1"
+          "https://api.kcisa.kr/openapi/API_CCA_149/request?serviceKey=" +
+            import.meta.env.VITE_ART_API_KEY +
+            "&numOfRows=6&pageNo=1"
         );
         setData(res.data.response.body.items.item); // item 배열 저장
         console.log("API 응답:", res.data.response.body.items.item);
