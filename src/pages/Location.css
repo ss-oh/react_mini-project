@@ -180,7 +180,7 @@ h3 {
 }
 .right-box {
   text-align: left;
-  width: 70%;
+  flex: 1;
   border-bottom: 1px solid #ddd;
 }
 

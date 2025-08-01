@@ -11,3 +11,6 @@
 h3 {
   color: white;
 }
+main {
+  margin-top: -60px; /* 헤더 높이만큼 마진 추가 */
+}
