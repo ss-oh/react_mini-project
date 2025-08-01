@@ -146,6 +146,7 @@ function MainPage() {
                   position: "relative",
                   transition: ".4s",
                   transformStyle: "preserve-3d",
+                  cursor: "pointer",
                 }}
               >
                 <Card.Img

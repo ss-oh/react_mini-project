@@ -42,6 +42,10 @@ header {
   cursor: pointer;
 }
 
+li:hover {
+  cursor: pointer;
+}
+
 .mobile-nav {
   display: none;
 }
