@@ -14,3 +14,8 @@ h3 {
 main {
   margin-top: -60px; /* 헤더 높이만큼 마진 추가 */
 }
+
+.btn-primary {
+  background-color: #f82847;
+  border: none;
+}

@@ -1,37 +1,55 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import {useState, useEffect} from "react";
-import {Card, CardImg, CardText, Carousel} from "react-bootstrap";
+import {Card, Carousel} from "react-bootstrap";
 import "./MainPage.css";
 
 function MainPage() {
   const [index, setIndex] = useState(0);
-  const [data, setData] = useState([]); // API 데이터를 저장할 상태
-  const [error, setError] = useState(null); // 에러 상태
-  const [loading, setLoading] = useState(true); // 로딩 상태
+  const [carouselData, setCarouselData] = useState([]); // 캐러셀용
+  const [cardData, setCardData] = useState([]); // 카드리스트용
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [page, setPage] = useState(1);
 
-  // 페이지 로딩 시 API 호출
+  // 1페이지 데이터만 캐러셀/카드 모두에 사용
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await axios(
-          // 환경 변수 사용 권장: import.meta.env.VITE_API_KEY
-          "https://api.kcisa.kr/openapi/API_CCA_149/request?serviceKey=" +
-            import.meta.env.VITE_ART_API_KEY +
-            "&numOfRows=6&pageNo=1"
-        );
-        setData(res.data.response.body.items.item); // item 배열 저장
-        console.log("API 응답:", res.data.response.body.items.item);
-        setLoading(false);
-      } catch (error) {
-        setError("API 호출 실패: " + error.message);
-        console.error("API 호출 실패:", error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
+    fetchFirstPage();
   }, []);
+
+  const fetchFirstPage = async () => {
+    try {
+      const res = await axios(
+        "https://api.kcisa.kr/openapi/API_CCA_149/request?serviceKey=" +
+          import.meta.env.VITE_ART_API_KEY +
+          `&numOfRows=6&pageNo=1`
+      );
+      const items = res.data.response.body.items.item;
+      setCarouselData(items); // 캐러셀은 1페이지 데이터만
+      setCardData(items); // 카드리스트는 누적
+      setLoading(false);
+    } catch (error) {
+      setError("API 호출 실패: " + error.message);
+      setLoading(false);
+    }
+  };
+
+  // 더보기: 카드리스트만 추가
+  const handleLoadMore = async () => {
+    const nextPage = page + 1;
+    setPage(nextPage);
+    try {
+      const res = await axios(
+        "https://api.kcisa.kr/openapi/API_CCA_149/request?serviceKey=" +
+          import.meta.env.VITE_ART_API_KEY +
+          `&numOfRows=6&pageNo=${nextPage}`
+      );
+      const items = res.data.response.body.items.item;
+      setCardData((prev) => [...prev, ...items]);
+    } catch (error) {
+      setError("API 호출 실패: " + error.message);
+    }
+  };
 
   const handleSelect = (selectedIndex) => {
     setIndex(selectedIndex);
@@ -50,11 +68,11 @@ function MainPage() {
         </div>
       )}
       {error && <div style={{color: "red"}}>{error}</div>}
-      {data.length > 0 ? (
+      {cardData.length > 0 ? (
         <main>
           <section className="imgslide">
             <Carousel activeIndex={index} onSelect={handleSelect}>
-              {data.map((item, idx) => (
+              {carouselData.map((item, idx) => (
                 <Carousel.Item key={item.LOCAL_ID || idx}>
                   <img
                     className="d-block w-100"
@@ -117,10 +135,10 @@ function MainPage() {
               perspective: "1100px",
             }}
           >
-            {data.map((item, idx) => (
+            {cardData.map((item, idx) => (
               <Card
                 className="bg-dark text-white"
-                key={idx}
+                key={item.LOCAL_ID || idx}
                 style={{
                   height: "400px",
                   width: "300px",
@@ -175,6 +193,11 @@ function MainPage() {
                 </Card.ImgOverlay>
               </Card>
             ))}
+          </div>
+          <div style={{textAlign: "center", margin: "30px 0"}}>
+            <button onClick={handleLoadMore} className="btn btn-primary">
+              더보기
+            </button>
           </div>
         </main>
       ) : (
