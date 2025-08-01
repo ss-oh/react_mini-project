@@ -108,4 +108,78 @@ header {
     background: rgba(0, 0, 0, 0.3);
     z-index: 98;
   }
+
+  /* 햄버거버튼 */
+  .hamburger {
+    width: 40px;
+    height: 20px;
+    position: relative;
+    background-color: transparent;
+    border: none;
+  }
+
+  .button_text {
+    width: 0;
+    height: 0;
+    overflow: hidden;
+    font-size: 0;
+    line-height: 0;
+    color: rgba(0, 0, 0, 0);
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .hamburger::before,
+  .hamburger::after,
+  .hamburger span {
+    content: "";
+    width: 20px;
+    height: 2.5px;
+    background-color: rgb(46, 46, 46);
+    border-radius: 5px;
+    margin: 0;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    transition-property: transform, margin-top;
+    transition-duration: 150ms;
+    transition-timing-function: ease-out;
+  }
+
+  .hamburger::before {
+    margin-top: -7px;
+  }
+
+  .hamburger::after {
+    margin-top: 7px;
+  }
+
+  .hamburger.clicked span {
+    display: none;
+  }
+
+  .hamburger.clicked::before,
+  .hamburger.clicked::after,
+  .hamburger.prev_clicked::before,
+  .hamburger.prev_clicked::after {
+    margin-top: 0;
+    background-color: white;
+  }
+
+  .hamburger.clicked::before {
+    transform: translate(-50%, -50%) rotateZ(45deg);
+  }
+
+  .hamburger.clicked::after {
+    transform: translate(-50%, -50%) rotateZ(-45deg);
+  }
 }

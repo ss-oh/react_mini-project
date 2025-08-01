@@ -1,9 +1,35 @@
 import {useNavigate} from "react-router-dom";
 import "./Header.css";
-import {useState} from "react";
+import {useRef, useState} from "react";
 function Header() {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = useState(false);
+  const buttonRef = useRef(null); // useRef로 버튼 참조
+
+  const handleButtonClick = () => {
+    const button = buttonRef.current;
+    if (!button) return;
+
+    if (button.classList.contains("clicked")) {
+      const resetButton = () => {
+        button.removeEventListener("transitionend", resetButton);
+        button.classList.remove("prev_clicked");
+      };
+
+      button.classList.add("prev_clicked");
+      button.classList.remove("clicked");
+      button.addEventListener("transitionend", resetButton);
+    } else {
+      const clickButton = () => {
+        button.removeEventListener("transitionend", clickButton);
+        button.classList.remove("prev_clicked");
+        button.classList.add("clicked");
+      };
+
+      button.classList.add("prev_clicked");
+      button.addEventListener("transitionend", clickButton);
+    }
+  };
 
   return (
     <header>
@@ -39,8 +65,15 @@ function Header() {
             />
           </div>
         </div>
-        <div className="togglebtn">
-          <button onClick={() => setMenuOpen((prev) => !prev)}>☰</button>
+        <div className="togglebtn" onClick={() => setMenuOpen((prev) => !prev)}>
+          <button
+            className="hamburger"
+            id="hamburger_button"
+            ref={buttonRef} // ref 연결
+            onClick={handleButtonClick}
+          >
+            <span className="button_text"></span>
+          </button>
         </div>
         {menuOpen && (
           <div className="mobile-overlay" onClick={() => setMenuOpen(false)} />
@@ -50,6 +83,10 @@ function Header() {
             <li
               onClick={() => {
                 setMenuOpen(false);
+                const button = buttonRef.current;
+                if (button) {
+                  button.classList.remove("clicked", "prev_clicked");
+                }
                 navigate("/");
               }}
             >
@@ -58,6 +95,10 @@ function Header() {
             <li
               onClick={() => {
                 setMenuOpen(false);
+                const button = buttonRef.current;
+                if (button) {
+                  button.classList.remove("clicked", "prev_clicked");
+                }
                 navigate("/hangaram");
               }}
             >
@@ -66,6 +107,10 @@ function Header() {
             <li
               onClick={() => {
                 setMenuOpen(false);
+                const button = buttonRef.current;
+                if (button) {
+                  button.classList.remove("clicked", "prev_clicked");
+                }
                 navigate("/concert");
               }}
             >
@@ -74,6 +119,10 @@ function Header() {
             <li
               onClick={() => {
                 setMenuOpen(false);
+                const button = buttonRef.current;
+                if (button) {
+                  button.classList.remove("clicked", "prev_clicked");
+                }
                 navigate("/login");
               }}
             >
@@ -82,6 +131,10 @@ function Header() {
             <li
               onClick={() => {
                 setMenuOpen(false);
+                const button = buttonRef.current;
+                if (button) {
+                  button.classList.remove("clicked", "prev_clicked");
+                }
                 navigate("/location");
               }}
             >
@@ -90,6 +143,10 @@ function Header() {
             <li
               onClick={() => {
                 setMenuOpen(false);
+                const button = buttonRef.current;
+                if (button) {
+                  button.classList.remove("clicked", "prev_clicked");
+                }
                 navigate("/ticket");
               }}
             >
