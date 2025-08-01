@@ -9,7 +9,11 @@ function Header() {
     <header>
       <div className="desktop-nav">
         <div className="logo" onClick={() => navigate("/")}>
-          <img src="../src/imges/logo.png" alt="" srcSet="" />
+          <img
+            src={`${import.meta.env.BASE_URL}images/logo.png`}
+            alt=""
+            srcSet=""
+          />
         </div>
         <nav>
           <ul className="desktop-nav-list">
@@ -28,7 +32,11 @@ function Header() {
       <div className="mobile-nav">
         <div className="mobile-nav-wrap">
           <div className="logo" onClick={() => navigate("/")}>
-            <img src="../src/imges/logo.png" alt="" srcSet="" />
+            <img
+              src={`${import.meta.env.BASE_URL}images/logo.png`}
+              alt=""
+              srcSet=""
+            />
           </div>
         </div>
         <div className="togglebtn">

@@ -320,11 +320,12 @@ function Location() {
                     <div className="right-box">
                       <p className="pink-txt">남부터미널역 5번출구</p>
                       <p className="txt-info">
-                        <span>1</span> 도보이동 (약 5~10분 소요)
+                        <span className="location-span">1</span> 도보이동 (약
+                        5~10분 소요)
                       </p>
                       <p className="txt-info">
-                        <span>2</span> 마을버스 22번(초록색)을 타고 두 정거장
-                        이동
+                        <span className="location-span">2</span> 마을버스
+                        22번(초록색)을 타고 두 정거장 이동
                       </p>
                     </div>
                   </div>
@@ -335,11 +336,12 @@ function Location() {
                     <div className="right-box">
                       <p className="green-txt">서초역 3번출구</p>
                       <p className="txt-info">
-                        <span>1</span> 마을버스 11번(초록색)을 타고 네 정거장
-                        이동
+                        <span className="location-span">1</span> 마을버스
+                        11번(초록색)을 타고 네 정거장 이동
                       </p>
                       <p className="txt-info">
-                        <span>2</span> 도보이동 (약 20~25분 소요)
+                        <span className="location-span">2</span> 도보이동 (약
+                        20~25분 소요)
                       </p>
                     </div>
                   </div>
@@ -350,8 +352,8 @@ function Location() {
                     <div className="right-box">
                       <p className="blue-txt">사당역 1번출구</p>
                       <p className="txt-info">
-                        <span>1</span> 마을버스 17번(초록색)을 타고 16개 정거장
-                        이동
+                        <span className="location-span">1</span> 마을버스
+                        17번(초록색)을 타고 16개 정거장 이동
                       </p>
                     </div>
                   </div>
@@ -494,17 +496,29 @@ function Location() {
             <div>
               <p>예술의 전당 전체지도</p>
 
-              <img src="../src/imges/map02.jpg" alt="" srcset="" />
+              <img
+                src={`${import.meta.env.BASE_URL}images/map01.jpg`}
+                alt=""
+                srcSet=""
+              />
             </div>
             <div>
               <p>예술의 전당 전체지도</p>
 
-              <img src="../src/imges/map01.jpg" alt="" srcset="" />
+              <img
+                src={`${import.meta.env.BASE_URL}images/map01.jpg`}
+                alt=""
+                srcSet=""
+              />
             </div>
             <div>
               <p>예술의 전당 전체지도</p>
 
-              <img src="../src/imges/map03.jpg" alt="" srcset="" />
+              <img
+                src={`${import.meta.env.BASE_URL}images/map03.jpg`}
+                alt=""
+                srcSet=""
+              />
             </div>
           </Tab>
         </Tabs>
