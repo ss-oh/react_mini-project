@@ -8,7 +8,7 @@ function Location() {
   const [lng, setLng] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [map, setMap] = useState(null); // 지도 객체 저장
-  const [activeButton, setActiveButton] = useState("artsCenter"); // 초기 활성화: 예술의전당
+  const [activeButton, setActiveButton] = useState("currentLocation"); // 초기 활성화: 예술의전당
 
   useEffect(() => {
     // 지도를 표시할 div

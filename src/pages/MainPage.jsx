@@ -189,7 +189,9 @@ function MainPage() {
                     시간: {item.EVENT_PERIOD}
                   </Card.Text>
                   <Card.Text style={{position: "relative", zIndex: 2}}>
-                    <a href={item.URL}>바로가기</a>
+                    <button className="btn btn-primary">
+                      <a href={item.URL}>바로가기</a>
+                    </button>
                   </Card.Text>
                 </Card.ImgOverlay>
               </Card>

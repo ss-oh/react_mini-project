@@ -134,8 +134,9 @@ h3 {
 .subwaylist {
   display: flex;
   flex-direction: row;
-  margin: 20px 0;
-  width: 100%;
+  margin: 0 auto;
+  width: 80%;
+  margin-top: 50px;
 }
 
 .subwaylist dt {
@@ -182,7 +183,10 @@ h3 {
   text-align: left;
   flex: 1;
   border-bottom: 1px solid #ddd;
-  width: 600px;
+}
+
+dd {
+  width: 100%;
 }
 
 .txt-info {

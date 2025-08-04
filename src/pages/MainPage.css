@@ -18,6 +18,7 @@ main {
 .btn-primary {
   background-color: #f82847;
   border: none;
+  z-index: 99;
 }
 .bg-dark {
   margin: 0px 20px;
