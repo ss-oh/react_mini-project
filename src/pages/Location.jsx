@@ -112,12 +112,6 @@ function Location() {
     });
 
     // 중심 변경 이벤트 리스너
-    kakao.maps.event.addListener(kakaoMap, "center_changed", function () {
-      const level = kakaoMap.getLevel();
-      const latlng = kakaoMap.getCenter();
-      const message = `<p>지도 레벨은 ${level} 이고</p><p>중심 좌표는 위도 ${latlng.getLat()}, 경도 ${latlng.getLng()}입니다</p>`;
-      document.getElementById("result").innerHTML = message;
-    });
 
     // 다각형 데이터
     const areas = [
