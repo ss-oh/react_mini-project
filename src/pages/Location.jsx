@@ -69,6 +69,7 @@ function Location() {
       });
 
       infowindow.open(kakaoMap, marker);
+
       kakaoMap.setCenter(new kakao.maps.LatLng(37.479147, 127.011717));
     }
 
@@ -497,13 +498,13 @@ function Location() {
               <p>예술의 전당 전체지도</p>
 
               <img
-                src={`${import.meta.env.BASE_URL}images/map01.jpg`}
+                src={`${import.meta.env.BASE_URL}images/map_main.jpg`}
                 alt=""
                 srcSet=""
               />
             </div>
             <div>
-              <p>예술의 전당 전체지도</p>
+              <p>비타민스테이션 안내도</p>
 
               <img
                 src={`${import.meta.env.BASE_URL}images/map01.jpg`}
@@ -511,8 +512,8 @@ function Location() {
                 srcSet=""
               />
             </div>
-            <div>
-              <p>예술의 전당 전체지도</p>
+            <div className="map03">
+              <p>주차장 전기충전소 위치안내</p>
 
               <img
                 src={`${import.meta.env.BASE_URL}images/map03.jpg`}
@@ -549,12 +550,6 @@ function Location() {
             </button>
           </div>
         </div>
-        <div id="clickLatlng"></div>
-        <p id="result"></p>
-        <p>여기에 오시는 길에 대한 정보를 입력하세요.</p>
-        <p>예: 서울특별시 강남구 테헤란로 123</p>
-        <p>지하철: 2호선 강남역 5번 출구</p>
-        <p>버스: 400, 402, 740번 버스 이용</p>
         {isModalOpen && (
           <div className="modal">
             <div className="modal-content">

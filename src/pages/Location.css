@@ -182,6 +182,7 @@ h3 {
   text-align: left;
   flex: 1;
   border-bottom: 1px solid #ddd;
+  width: 600px;
 }
 
 .txt-info {

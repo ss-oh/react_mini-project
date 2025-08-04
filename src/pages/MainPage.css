@@ -19,3 +19,6 @@ main {
   background-color: #f82847;
   border: none;
 }
+.bg-dark {
+  margin: 0px 20px;
+}
